@@ -19,11 +19,11 @@
 <meta name="twitter:description" content="A guide for apartment buyers and renters in Sydney. The minimum legal benchmarks for apartment design are routinely treated as the maximum you will get.">
 
 <!-- Favicon: red square -->
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23cc2200'/%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%237a6650'/%3E%3C/svg%3E">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <!-- Mapbox GL JS (deferred so it doesn't delay the guide on slow phones) -->
 <link href="https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.css" rel="stylesheet">
@@ -35,8 +35,8 @@
 <style>
   :root {
     --bg: #f7f5ef;
-    --red: #cc2200;
-    --red-dark: #a81c00;
+    --red: #6e5a45;
+    --red-dark: #57473a;
     --text: #1a1a1a;
     --muted: #666666;
     --dark: #1a1a1a;
@@ -45,7 +45,7 @@
     --placeholder-border: #cccccc;
     /* #999 fails WCAG AA on #e8e6df (2.3:1); #666 passes (4.6:1) */
     --placeholder-text: #666666;
-    --alert-bg: #fff3f3;
+    --alert-bg: #f1e9dd;
     --border: #dddad2;
     --radius: 8px;
     --max: 1100px;
@@ -350,7 +350,7 @@
     font-size: 24px; font-weight: 800; line-height: 1.25; letter-spacing: -0.3px;
     max-width: 760px;
   }
-  .pullquote span { color: #ff5a3c; } /* lighter red: 5.2:1 on #1a1a1a */
+  .pullquote span { color: #e2d4bf; }
   @media (min-width: 768px) { .pullquote { font-size: 32px; padding: 40px; } }
 
   .callout {
@@ -679,6 +679,266 @@
     .site-footer .smallprint { color: #333; border-color: #999; }
   }
 </style>
+
+<!-- ===== Visual theme: warm taupe, cream surfaces, glowing horizon ===== -->
+<style>
+  :root {
+    --bg: #f4efe7;
+    --text: #2b2620;
+    --muted: #6b6155;            /* 5.2:1 on --bg */
+    --dark: #3a3129;
+    --light: #fbf8f3;
+    --red: #6e5a45;              /* accent (warm brown) replaces red: 5.5:1 on --bg */
+    --red-dark: #57473a;
+    --alert-bg: #f1e9dd;
+    --border: #e4dbcd;
+    --placeholder-bg: #ebe3d7;
+    --placeholder-border: #cfc3b2;
+    --placeholder-text: #6b6155;
+    --radius: 18px;
+    --display: "Inter Tight", "Inter", system-ui, sans-serif;
+  }
+  body { background: var(--bg); color: var(--text); }
+  :focus-visible { outline-color: var(--dark); }
+
+  /* ---- Hero panel (matches reference) ---- */
+  body { background: #f3eee7; }
+  .hero { padding: 10px 0 32px; }
+  .hero-panel {
+    position: relative; overflow: hidden;
+    margin: 0 10px;
+    border-radius: 16px;
+    min-height: 560px;
+    /* Taupe-beige, a touch deeper behind the text so white copy passes WCAG AA */
+    background:
+      radial-gradient(62% 48% at 50% 36%, rgba(110,96,82,0.52) 0%, rgba(110,96,82,0.52) 55%, rgba(110,96,82,0) 90%),
+      linear-gradient(180deg, #807161 0%, #887969 45%, #b9ab98 68%, #e3d8c8 86%, #efe8de 100%);
+    color: #fff;
+    display: flex; flex-direction: column;
+  }
+  .hero-glow { position: absolute; left: 0; right: 0; bottom: 0; top: 30%; width: 100%; height: 70%; pointer-events: none; }
+  @media (min-width: 768px) { .hero-glow { top: 0; height: 100%; } }
+
+  .topbar {
+    position: relative; z-index: 1;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    padding: 16px 20px;
+  }
+  .brand { display: flex; align-items: center; gap: 9px; color: #fff; text-decoration: none; font-size: 13px; font-weight: 500; }
+  .brand-mark { width: 20px; height: 20px; border-radius: 5px; background: #fbf7f1; flex: 0 0 20px; }
+  .topbar-right { display: flex; align-items: center; gap: 18px; }
+  .topnav { display: none; gap: 2px; }
+  .topnav button {
+    background: none; border: 0; color: #fff; cursor: pointer;
+    font-size: 12.5px; font-weight: 400; padding: 6px 10px; border-radius: 999px; min-height: 32px;
+  }
+  .topnav button:hover { background: rgba(255,255,255,0.12); }
+  .pill-ghost {
+    background: transparent; color: #fff; cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.85); border-radius: 999px;
+    font-size: 12.5px; font-weight: 500; padding: 0 16px; min-height: 30px;
+  }
+  .pill-ghost:hover { background: rgba(255,255,255,0.15); }
+  .topbar :focus-visible, .hero-head :focus-visible { outline-color: #fff; }
+  @media (min-width: 820px) { .topnav { display: flex; } }
+  @media (max-width: 380px) { .brand-text { font-size: 12px; } }
+
+  .hero-head {
+    position: relative; z-index: 1;
+    text-align: center; padding: 40px 20px 300px;
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .pill-discover {
+    display: inline-block; margin-bottom: 18px;
+    padding: 5px 14px; border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.8);
+    font-size: 10.5px; font-weight: 500; letter-spacing: 1.4px; text-transform: uppercase; color: #fff;
+  }
+  .hero h1 {
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: 36px; font-weight: 400; line-height: 1.12; letter-spacing: -0.02em;
+    color: #fff; max-width: none; margin: 0 auto;
+    text-shadow: 0 1px 18px rgba(70,55,40,0.22);
+  }
+  .hero .subtitle {
+    font-size: 13.5px; font-weight: 400; color: #fff;
+    max-width: 30ch; margin: 14px auto 22px; line-height: 1.6;
+    text-shadow: 0 1px 10px rgba(70,55,40,0.3);
+  }
+  .br-desktop { display: none; }
+  .btn-cream {
+    background: #f4eee5; color: #3a3129; cursor: pointer;
+    border: 0; border-radius: 9px;
+    font-size: 13px; font-weight: 500; padding: 9px 20px; min-height: 38px;
+    box-shadow: 0 4px 14px rgba(70,55,40,0.12);
+  }
+  .btn-cream:hover { background: #fffaf3; }
+  @media (min-width: 768px) {
+    .hero-panel { margin: 0 14px; min-height: 600px; border-radius: 18px; }
+    .topbar { padding: 20px 30px; }
+    .hero-head { padding: 64px 32px 230px; }
+    .hero h1 { font-size: 54px; }
+    .hero .subtitle { font-size: 15px; max-width: 60ch; }
+    .br-desktop { display: inline; }
+  }
+
+  /* ---- Cards beneath the panel ---- */
+  .hero-cards { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+  .stats { position: relative; z-index: 2; margin-top: -86px; gap: 12px; grid-template-columns: 1fr; }
+  .stat-card, .stat-card:nth-child(3) {
+    grid-column: auto;
+    background: #f1ebe2;
+    color: var(--text);
+    border: 1px solid #e3d9cb;
+    border-radius: 10px;
+    box-shadow: none;
+    padding: 18px 18px 20px;
+  }
+  .card-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; min-height: 30px; }
+  .room-icons { display: inline-flex; gap: 3px; }
+  .room-icons i { width: 11px; height: 11px; border: 1.6px solid #6e6255; border-radius: 2px; display: block; }
+  .card-head-value { font-size: 14px; font-weight: 500; color: #4a4036; }
+  .icon-circle {
+    width: 30px; height: 30px; border-radius: 50%; background: #8f7f6c; color: #fff;
+    display: grid; place-content: center; flex: 0 0 30px;
+  }
+  .icon-circle svg { width: 16px; height: 16px; }
+  .card-head-title { font-size: 15px; font-weight: 500; color: #2f2922; }
+  .card-big {
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: 34px; font-weight: 400; line-height: 1; letter-spacing: -0.02em;
+    color: #7e6e5c; margin-bottom: 10px; min-height: 30px;   /* large text: 3.9:1 on card */
+  }
+  .card-big span { font-size: 0.55em; margin-left: 2px; }
+  .stat-caption { color: #6b6155; font-size: 13px; line-height: 1.55; }
+  @media (min-width: 768px) {
+    .hero-cards { padding: 0 38px; }
+    .stats { grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: -96px; }
+    .stat-card { padding: 20px 22px 22px; }
+  }
+
+  .hero-foot { margin-top: 28px; }
+  .hero-foot .intro { color: var(--muted); max-width: 68ch; }
+  .hero-actions { margin-top: 20px; }
+
+  /* ---- Buttons ---- */
+  .btn { border-radius: 999px; font-weight: 600; font-size: 15px; }
+  .btn-dark { background: var(--dark); }
+  .btn-dark:hover { background: #2a231d; }
+  .btn-outline { background: transparent; color: var(--text); border: 1px solid #cbbfae; }
+  .btn-outline:hover { background: var(--light); color: var(--text); border-color: var(--dark); }
+
+  /* ---- Sticky header ---- */
+  .site-header {
+    background: rgba(244,239,231,0.85);
+    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+    color: var(--text); border-bottom: 1px solid var(--border);
+  }
+  .header-title { color: var(--text); font-weight: 600; }
+  .header-title::before { background: var(--dark); border-radius: 3px; }
+  .share-status { color: var(--text); }
+  .share-btn { background: transparent; color: var(--text); border: 1px solid #cbbfae; border-radius: 999px; padding: 6px 14px; }
+  .share-btn:hover { background: var(--light); border-color: var(--dark); }
+  .share-btn:focus-visible { outline-color: var(--dark); }
+
+  /* ---- Tabs ---- */
+  .tabs-nav {
+    background: rgba(244,239,231,0.88);
+    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+  .tabs-nav .container::after { background: linear-gradient(to right, rgba(244,239,231,0), #f4efe7); }
+  .tablist { gap: 6px; align-items: center; }
+  .tab {
+    height: 38px; padding: 0 14px; border-radius: 999px; border: 1px solid transparent;
+    font-size: 14px; font-weight: 500; color: var(--muted);
+  }
+  .tab:hover { background: var(--light); color: var(--text); }
+  .tab[aria-selected="true"] { background: var(--dark); border-color: var(--dark); color: #fff; font-weight: 600; }
+  .tab .tab-num { color: #9a8e7f; }
+  .tab[aria-selected="true"] .tab-num { color: #e2d4bf; }
+  .tab:focus-visible { outline-offset: 2px; }
+  @media (min-width: 900px) { .tablist { justify-content: center; } }
+
+  /* ---- Headings ---- */
+  .kicker {
+    display: inline-block; padding: 5px 14px; border-radius: 999px;
+    border: 1px solid #cbbfae; background: transparent;
+    color: var(--muted); font-size: 11px; font-weight: 600; letter-spacing: 1.6px;
+    margin-bottom: 16px;
+  }
+  .section-heading {
+    font-family: var(--display);
+    border-left: 0; padding-left: 0;
+    text-transform: none; font-weight: 400; letter-spacing: -0.03em; line-height: 1.08;
+    font-size: 32px;
+  }
+  .sub-heading {
+    font-family: var(--display);
+    border-left: 0; padding-left: 0;
+    text-transform: none; font-weight: 500; letter-spacing: -0.02em; font-size: 24px;
+  }
+  .lede { color: var(--muted); }
+  @media (min-width: 768px) {
+    .section-heading { font-size: 46px; }
+    .sub-heading { font-size: 28px; }
+  }
+
+  /* ---- Surfaces ---- */
+  .card {
+    background: var(--light); border: 1px solid #ebe2d5; border-radius: var(--radius);
+    box-shadow: 0 1px 2px rgba(60,45,30,0.03), 0 12px 30px rgba(60,45,30,0.05);
+  }
+  .card h3 { font-weight: 600; }
+  .card-num { background: transparent; border: 1px solid #cbbfae; color: var(--text); width: 32px; height: 32px; font-weight: 600; }
+  .help-card:hover { border-color: #cbbfae; box-shadow: 0 18px 40px rgba(60,45,30,0.08); }
+  .placeholder { border-radius: var(--radius); }
+  .figure-img { border-radius: var(--radius); }
+  .tag { border-radius: 999px; background: var(--light); color: var(--text); font-weight: 600; letter-spacing: 0.6px; }
+  .tag.is-red { background: var(--dark); color: #fff; }
+  .red-note { color: var(--text); font-family: var(--display); font-weight: 500; letter-spacing: -0.01em; }
+  .spec-list li { border-bottom-color: var(--border); }
+  .callout { border-left: 0; border-radius: var(--radius); background: var(--alert-bg); }
+  .callout strong { color: var(--text); }
+  .pullquote { background: var(--dark); border-radius: 24px; font-family: var(--display); font-weight: 400; letter-spacing: -0.02em; }
+  .pullquote span { color: #e2d4bf; } /* 9:1 on --dark */
+  .questions { background: var(--light); border-color: #ebe2d5; border-radius: var(--radius); box-shadow: 0 12px 30px rgba(60,45,30,0.05); }
+  .q-num { font-family: var(--display); font-weight: 300; color: var(--red); }
+  .q-label:hover { background: #f7f2ea; }
+  .q-check { border-color: #a89a88; }
+  .progress-track { height: 4px; border-radius: 999px; background: var(--border); }
+  .adg-table { background: var(--light); border-color: #ebe2d5; border-radius: var(--radius); }
+  .adg-table thead th { background: var(--dark); }
+  .pager { border-top-color: var(--border); }
+
+  /* ---- Footer ---- */
+  .site-footer { background: var(--dark); margin: 40px 8px 8px; border-radius: 24px; }
+  .site-footer .smallprint, .site-footer .footer-muted { color: #d8cdbd; }
+  .site-footer .smallprint { border-top-color: #574b3f; }
+  .footer-top { border-bottom-color: #574b3f; }
+  .btn-light { background: #f6efe4; color: var(--dark); }
+  @media (min-width: 768px) { .site-footer { margin: 56px 16px 16px; border-radius: 28px; } }
+
+  .plan-img { background: #fbf8f3; border: 1px solid #ebe2d5; padding: 44px 8px 8px; }
+
+  /* ---- Map panel ---- */
+  .map-wrap { background: var(--placeholder-bg); }
+  .lga-link-btn { border-radius: 999px; }
+  .lga-warning { background: var(--alert-bg); border-radius: 0 10px 10px 0; }
+  .mapboxgl-popup.lga-tooltip .mapboxgl-popup-content { color: var(--text); }
+  @media (min-width: 769px) {
+    .lga-panel { top: 12px; right: 12px; bottom: 12px; border-radius: var(--radius); box-shadow: 0 24px 60px rgba(60,45,30,0.18); }
+  }
+
+  @media print {
+    .hero-panel { background: none; color: #000; min-height: 0; margin: 0; }
+    .hero-glow, .topbar, .btn-cream { display: none !important; }
+    .hero h1, .hero .subtitle, .pill-discover { color: #000; text-shadow: none; border-color: #000; }
+    .hero-head { padding: 0 0 12pt; }
+    .stats { margin-top: 0; }
+    .site-footer { margin: 14pt 0 0; border-radius: 0; }
+  }
+</style>
 </head>
 <body>
 
@@ -699,30 +959,76 @@
 
   <!-- 2. Hero + 3. Stats -->
   <section class="hero" id="top">
-    <div class="container">
-      <p class="eyebrow">Buyer &amp; renter guide · Sydney</p>
-      <h1>What You're <em>Actually</em> Buying</h1>
-      <p class="subtitle">A guide for apartment buyers and renters in Sydney</p>
-      <p class="intro">In Sydney's developer-led apartment market, the legal minimum benchmarks for apartment size, natural light, ventilation and communal space are routinely treated as the maximum you will get. Every square metre above the minimum is subtracted from the developer's return. This guide explains what that means for the apartment you are buying or renting, and what to look for before you commit.</p>
+    <div class="hero-panel">
+      <!-- Glowing horizon line with a soft cream "ground" beneath it -->
+      <svg class="hero-glow" viewBox="0 0 1200 700" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#e9dfd1"/>
+            <stop offset="1" stop-color="#f3eee7"/>
+          </linearGradient>
+          <radialGradient id="bloom" cx="0.5" cy="0.5" r="0.5">
+            <stop offset="0" stop-color="#fffaf2" stop-opacity="0.85"/>
+            <stop offset="1" stop-color="#fffaf2" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="glowWide" x="-10%" y="-60%" width="120%" height="220%"><feGaussianBlur stdDeviation="16"/></filter>
+          <filter id="glowTight" x="-10%" y="-60%" width="120%" height="220%"><feGaussianBlur stdDeviation="2.2"/></filter>
+        </defs>
+        <ellipse cx="640" cy="520" rx="380" ry="90" fill="url(#bloom)"/>
+        <path d="M-40 640 C 240 640, 420 600, 600 560 C 800 515, 980 470, 1240 455 L 1240 700 L -40 700 Z" fill="url(#ground)"/>
+        <path d="M-40 640 C 240 640, 420 600, 600 560 C 800 515, 980 470, 1240 455" fill="none" stroke="#fffaf2" stroke-width="30" stroke-opacity="0.55" filter="url(#glowWide)"/>
+        <path d="M-40 640 C 240 640, 420 600, 600 560 C 800 515, 980 470, 1240 455" fill="none" stroke="#ffffff" stroke-width="2.5" filter="url(#glowTight)"/>
+      </svg>
 
-      <div class="stats" aria-label="Key figures">
-        <div class="stat-card">
-          <p class="stat-number">50m²</p>
-          <p class="stat-caption">Minimum one-bedroom apartment size under the Apartment Design Guide. Most developer apartments in Sydney are built to this number exactly.</p>
-        </div>
-        <div class="stat-card">
-          <p class="stat-number">70m²</p>
-          <p class="stat-caption">Minimum two-bedroom apartment size. A bedroom can meet its benchmark and still not accept a bed with the wardrobe open.</p>
-        </div>
-        <div class="stat-card">
-          <p class="stat-number">33%</p>
-          <p class="stat-caption">Increase in psychological distress risk for every additional building defect reported by apartment residents. (RMIT, 2022)</p>
+      <div class="topbar">
+        <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true"></span><span class="brand-text">What You're Actually Buying</span></a>
+        <div class="topbar-right">
+          <nav class="topnav" aria-label="Quick links">
+            <button type="button" data-goto="minimum">The guide</button>
+            <button type="button" data-goto="questions">Questions</button>
+            <button type="button" data-goto="explore">Your area</button>
+          </nav>
+          <button type="button" class="pill-ghost" data-share>Share</button>
         </div>
       </div>
 
+      <div class="hero-head">
+        <p class="pill-discover">Buyer &amp; renter guide</p>
+        <h1>What You're Actually Buying</h1>
+        <p class="subtitle">A guide for apartment buyers and renters in Sydney.<br class="br-desktop"> The legal minimum is routinely treated as the maximum you will get.</p>
+        <button type="button" class="btn-cream" data-goto="minimum">Start the guide</button>
+      </div>
+    </div>
+
+    <!-- Three cards beneath the panel -->
+    <div class="hero-cards">
+      <div class="stats" aria-label="Key figures">
+        <div class="stat-card">
+          <p class="card-head">
+            <span class="room-icons" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+            <span class="card-head-value">50m²</span>
+          </p>
+          <p class="stat-caption">Minimum one-bedroom apartment size under the Apartment Design Guide. Most developer apartments in Sydney are built to this number exactly.</p>
+        </div>
+        <div class="stat-card">
+          <p class="card-head">
+            <span class="icon-circle" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM12 5v14M4 12h8" fill="none" stroke="currentColor" stroke-width="2"/></svg></span>
+            <span class="card-head-title">70m² two-bedroom</span>
+          </p>
+          <p class="stat-caption">Minimum two-bedroom apartment size. A bedroom can meet its benchmark and still not accept a bed with the wardrobe open.</p>
+        </div>
+        <div class="stat-card">
+          <p class="card-big">33<span>%</span></p>
+          <p class="stat-caption">Increase in psychological distress risk for every additional building defect reported by apartment residents. (RMIT, 2022)</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="container hero-foot">
+      <p class="intro">In Sydney's developer-led apartment market, the legal minimum benchmarks for apartment size, natural light, ventilation and communal space are routinely treated as the maximum you will get. Every square metre above the minimum is subtracted from the developer's return. This guide explains what that means for the apartment you are buying or renting, and what to look for before you commit.</p>
       <div class="hero-actions">
-        <button type="button" class="btn btn-dark" data-goto="minimum">Start the guide <span aria-hidden="true">&darr;</span></button>
         <button type="button" class="btn btn-outline" data-goto="questions">At a display suite? Questions to ask</button>
+        <button type="button" class="btn btn-outline" data-goto="explore">Explore your area on the map</button>
       </div>
     </div>
   </section>
@@ -755,9 +1061,7 @@
           <figure>
             <span class="tag">The plan</span>
             <!-- REPLACE: <img class="figure-img" src="images/adg-minimum-plan.jpg" alt="ADG minimum one-bedroom apartment plan, 50m², furnished to scale"> -->
-            <div class="placeholder" role="img" aria-label="Image placeholder: ADG minimum one-bedroom apartment plan, 50m², furnished to scale.">
-              ADG minimum one-bedroom apartment plan, 50m², furnished to scale.
-            </div>
+            <a href="images/adg-minimum-plan.svg" target="_blank" rel="noopener" title="Open the plan full size"><img class="figure-img plan-img" src="images/adg-minimum-plan.svg" alt="ADG minimum one-bedroom apartment, 50 square metres, furnished to scale. Living and dining 3.6 by 4.0 metres with the kitchen along one wall, bedroom 3.0 by 3.4 metres with a queen bed, bathroom with laundry, and an 8 square metre balcony."></a>
             <figcaption>
               <ul class="spec-list">
                 <li><span>Bedroom</span><span>10m², min. 3.0m wide (excl. wardrobe)</span></li>
@@ -1025,7 +1329,8 @@
 
   tabs.forEach(function (tab, i) {
     tab.addEventListener('click', function () {
-      select(ids[i], { push: true, scroll: true });
+      // Always bring the tab bar to the top so the new content is in view (on phones it otherwise opens off-screen)
+      select(ids[i], { push: true, scroll: true, force: true });
     });
     tab.addEventListener('keydown', function (e) {
       var n = null;
@@ -1057,7 +1362,7 @@
       pager.appendChild(b);
     }
     if (i > 0) make(i - 1, 'prev', 'Previous');
-    if (i < panels.length - 1 && !panels[i + 1].hasAttribute('data-standalone')) make(i + 1, 'next', 'Next');
+    if (i < panels.length - 1) make(i + 1, 'next', 'Next');
   });
 
   // Hero buttons
@@ -1391,7 +1696,7 @@
       map.addLayer({
         id: 'lga-fill', type: 'fill', source: 'lgas',
         paint: {
-          'fill-color': '#cc2200',
+          'fill-color': '#7a6650',
           'fill-opacity': [
             'case',
             ['boolean', ['feature-state', 'selected'], false], 0.3,
@@ -1404,7 +1709,7 @@
       map.addLayer({
         id: 'lga-borders', type: 'line', source: 'lgas',
         paint: {
-          'line-color': '#cc2200',
+          'line-color': '#5c4a38',
           'line-opacity': ['case', ['boolean', ['feature-state', 'selected'], false], 1, 0.3],
           'line-width': ['case', ['boolean', ['feature-state', 'selected'], false], 2, 1]
         }
