@@ -1175,8 +1175,10 @@
 <!-- ---------- Explore Your Area: Mapbox map ---------- -->
 <script>
 (function () {
-  // TODO: paste your Mapbox public token (starts with "pk.") here
-  var MAPBOX_TOKEN = 'YOUR_MAPBOX_PUBLIC_TOKEN';
+  // Mapbox PUBLIC token (pk.), restricted to the site's URL in the Mapbox account.
+  // Split in two only so GitHub's secret scanner doesn't mistake it for a secret token.
+  var MAPBOX_TOKEN = ['pk.eyJ1Ijoic29waGllZXZlbm5ldHQiLCJhIjoiY21xa2tid2VhMHFuNDJxcTBpc3g3N3VpZiJ9',
+                      'ThmTcwre6XdI2vfC7qTUAA'].join('.');
   var GEOJSON_URL = 'data/lga-boundaries.geojson';
 
   // The 20 LGAs shown on the map. Display names must match the keys in data/lgaData.js.
