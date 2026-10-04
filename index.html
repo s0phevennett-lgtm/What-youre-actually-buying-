@@ -920,6 +920,9 @@
   @media (min-width: 768px) { .site-footer { margin: 56px 16px 16px; border-radius: 28px; } }
 
   .plan-img { background: #fbf8f3; border: 1px solid #ebe2d5; padding: 44px 8px 8px; }
+  .render-img { background: #fbf8f3; border: 1px solid #ebe2d5; }
+  .render-caption { font-size: 15px; color: var(--text); margin-bottom: 6px; }
+  .render-credit { font-size: 13px; color: var(--muted); font-style: italic; margin-bottom: 14px; }
 
   /* ---- Map panel ---- */
   .map-wrap { background: var(--placeholder-bg); }
@@ -1075,11 +1078,10 @@
           </figure>
           <figure>
             <span class="tag is-red">The render</span>
-            <!-- REPLACE: <img class="figure-img is-alert" src="images/marketing-render.jpg" alt="..."> -->
-            <div class="placeholder is-alert" role="img" aria-label="Image placeholder: The same apartment as it appears in the marketing render.">
-              The same apartment as it appears in the marketing render: wide-angle lens, oversized windows, undersized furniture, digitally enhanced light.
-            </div>
+            <a href="images/marketing-render.webp" target="_blank" rel="noopener" title="Open the render full size"><img class="figure-img render-img" src="images/marketing-render.webp" width="1312" height="1199" loading="lazy" alt="Marketing-style 3D render of the same one-bedroom apartment, viewed from above at an angle: warm sunbeams across timber floors, rugs, plants, an armchair, two bedside tables and balcony furniture, with no door swings shown."></a>
             <figcaption>
+              <p class="render-caption"><strong>The same apartment as marketed:</strong> an angled camera, stretched proportions, extra furniture, door swings hidden, and sunlight the apartment won't actually get.</p>
+              <p class="render-credit">AI-generated illustration, created for this guide from the same floor plan.</p>
               <p class="red-note">Same apartment. Different lens. The render is not the reality.</p>
             </figcaption>
           </figure>
@@ -1149,10 +1151,11 @@
         <div class="grid grid-2">
           <figure>
             <span class="tag">Render</span>
-            <!-- REPLACE: <img class="figure-img" src="images/render.jpg" alt="..."> -->
-            <div class="placeholder" role="img" aria-label="Image placeholder: Marketing render.">
-              Marketing render: wide-angle lens, enhanced natural light, scaled-down furniture, walls digitally thinned or removed, styling that will not be included.
-            </div>
+            <a href="images/marketing-render-interior.webp" target="_blank" rel="noopener" title="Open the render full size"><img class="figure-img render-img" src="images/marketing-render-interior.webp" width="1536" height="1024" loading="lazy" alt="Marketing-style render of a one-bedroom apartment seen from high on the balcony: walls cut away to show the living room, bedroom and bathroom at once, golden sunlight, glowing lamps, rugs, plants and styled furniture."></a>
+            <figcaption>
+              <p class="render-caption"><strong>Marketing render:</strong> wide-angle lens, enhanced natural light, scaled-down furniture, walls digitally thinned or removed, styling that will not be included.</p>
+              <p class="render-credit">AI-generated illustration, created for this guide.</p>
+            </figcaption>
           </figure>
           <figure>
             <span class="tag is-red">Reality</span>
