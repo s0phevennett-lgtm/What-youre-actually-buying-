@@ -924,6 +924,35 @@
   .render-caption { font-size: 15px; color: var(--text); margin-bottom: 6px; }
   .render-credit { font-size: 13px; color: var(--muted); font-style: italic; margin-bottom: 14px; }
 
+  /* ---- Floor plan diagrams ---- */
+  .fp-card { display: flex; flex-direction: column; padding: 14px 14px 26px; }
+  .fp-fig { margin: 0 0 20px; background: #f3ede4; border-radius: 12px; padding: 12px 10px 6px; }
+  .fp-fig svg { display: block; width: 100%; height: auto; font-family: Inter, system-ui, sans-serif; }
+  .fp-card .fp-head, .fp-card p { padding: 0 10px; }
+  .fp-head { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .fp-head .card-num { margin-bottom: 0; flex: 0 0 auto; }
+  .fp-head h3 { margin: 0; }
+  .d-room { fill: #fbf8f3; stroke: #3a3129; stroke-width: 2.5; }
+  .d-furn { fill: #e4d9c8; stroke: #8a7d6d; stroke-width: 1; }
+  .d-dash { fill: none; stroke: #3a3129; stroke-width: 1.3; stroke-dasharray: 4 3; }
+  .d-leaf { stroke: #3a3129; stroke-width: 1.6; }
+  .d-swing { fill: none; stroke: #8a7d6d; stroke-width: 0.8; }
+  .d-dim { stroke: #6b6155; stroke-width: 1; }
+  .d-guide { stroke: #8a7d6d; stroke-width: 1; stroke-dasharray: 3 3; }
+  .d-ink { fill: #3a3129; }
+  .d-blank { fill: #fff; stroke: #3a3129; stroke-width: 1; }
+  .d-mark { fill: #3a3129; }
+  .d-wall { stroke: #3a3129; stroke-width: 2.5; }
+  .d-section { fill: #fbf8f3; stroke: #3a3129; stroke-width: 2.5; }
+  .d-glass { stroke: #8a7d6d; stroke-width: 1.2; }
+  .d-person { fill: none; stroke: #6b6155; stroke-width: 2; stroke-linecap: round; }
+  .d-person circle { fill: #e4d9c8; }
+  .d-t { font-size: 11.5px; fill: #3a3129; }
+  .d-s { font-size: 10.5px; fill: #4a4036; }
+  .d-b { font-weight: 600; }
+  .d-c { text-anchor: middle; }
+  .d-r { text-anchor: end; }
+
   /* ---- Map panel ---- */
   .map-wrap { background: var(--placeholder-bg); }
   .lga-link-btn { border-radius: 999px; }
@@ -1118,25 +1147,100 @@
         <p class="kicker">Part 2 of 6</p>
         <h2 class="section-heading">How to read a floor plan</h2>
         <p class="lede">Four checks to make before you trust the plan in the brochure.</p>
-        <div class="grid grid-2">
-          <article class="card">
-            <span class="card-num" aria-hidden="true">1</span>
-            <h3>Check the scale</h3>
+        <div class="grid grid-2 fp-grid">
+          <article class="card fp-card">
+            <figure class="fp-fig">
+              <!-- 1 m = 36 px -->
+              <svg viewBox="0 0 320 150" role="img" aria-label="A room 3.6 metres wide, measured against a scale bar from 0 to 4 metres.">
+                <line x1="30" y1="12" x2="159.6" y2="12" class="d-dim"/><line x1="30" y1="7" x2="30" y2="17" class="d-dim"/><line x1="159.6" y1="7" x2="159.6" y2="17" class="d-dim"/>
+                <text x="94.8" y="9" class="d-t d-c d-b">?</text>
+                <rect x="30" y="22" width="129.6" height="72" class="d-room"/>
+                <rect x="40" y="70" width="72" height="18" rx="4" class="d-furn"/>
+                <line x1="159.6" y1="94" x2="159.6" y2="114" class="d-guide"/>
+                <g transform="translate(30 116)">
+                  <rect x="0" width="36" height="7" class="d-ink"/><rect x="36" width="36" height="7" class="d-blank"/><rect x="72" width="36" height="7" class="d-ink"/><rect x="108" width="36" height="7" class="d-blank"/>
+                  <text x="0" y="22" class="d-t d-c">0</text><text x="36" y="22" class="d-t d-c">1</text><text x="72" y="22" class="d-t d-c">2</text><text x="108" y="22" class="d-t d-c">3</text><text x="144" y="22" class="d-t d-c">4 m</text>
+                </g>
+                <circle cx="159.6" cy="119.5" r="4" class="d-mark"/>
+                <text x="190" y="48" class="d-t d-b">Room = 3.6 m</text>
+                <text x="190" y="64" class="d-t">read off the</text>
+                <text x="190" y="78" class="d-t">scale bar, not</text>
+                <text x="190" y="92" class="d-t">the picture</text>
+              </svg>
+            </figure>
+            <div class="fp-head"><span class="card-num" aria-hidden="true">1</span><h3>Check the scale</h3></div>
             <p>Every floor plan should include a scale bar. Use it to check actual room dimensions rather than relying on the proportions of the image. Without a scale bar, you cannot tell whether a room is 3 metres wide or 4.</p>
           </article>
-          <article class="card">
-            <span class="card-num" aria-hidden="true">2</span>
-            <h3>Measure the furniture</h3>
+          <article class="card fp-card">
+            <figure class="fp-fig">
+              <!-- Bedroom 3.0 x 3.4 m at 1 m = 36 px -->
+              <svg viewBox="0 0 320 150" role="img" aria-label="A 3.0 by 3.4 metre bedroom. A real 1.53 by 2.03 metre queen bed is drawn solid; a smaller brochure bed is drawn dashed. Open wardrobe doors leave 0.5 metres to the bed.">
+                <rect x="20" y="10" width="108" height="122.4" class="d-room"/>
+                <rect x="56" y="10" width="72" height="21.6" class="d-furn"/>
+                <line x1="74" y1="31.6" x2="74" y2="49.6" class="d-leaf"/><path d="M74 49.6 A18 18 0 0 0 92 31.6" class="d-swing"/>
+                <line x1="110" y1="31.6" x2="110" y2="49.6" class="d-leaf"/><path d="M110 49.6 A18 18 0 0 1 92 31.6" class="d-swing"/>
+                <rect x="54.9" y="67.6" width="73.1" height="55.1" rx="2" class="d-furn"/>
+                <rect x="69.7" y="73" width="58.3" height="44" rx="2" class="d-dash"/>
+                <line x1="74" y1="49.6" x2="74" y2="67.6" class="d-dim"/><line x1="70" y1="67.6" x2="78" y2="67.6" class="d-dim"/>
+                <text x="70" y="62" class="d-t d-r d-s">0.5 m</text>
+                <text x="74" y="145" class="d-t d-c d-s">3.0 m</text>
+                <rect x="150" y="28" width="16" height="11" rx="2" class="d-furn"/>
+                <text x="174" y="37" class="d-t d-b">Real queen bed</text>
+                <text x="174" y="51" class="d-t">1.53 × 2.03 m</text>
+                <rect x="150" y="70" width="16" height="11" rx="2" class="d-dash"/>
+                <text x="174" y="79" class="d-t d-b">Brochure bed</text>
+                <text x="174" y="93" class="d-t">drawn about 20% small</text>
+                <text x="150" y="122" class="d-t">0.5 m left to open</text>
+                <text x="150" y="136" class="d-t">the wardrobe</text>
+              </svg>
+            </figure>
+            <div class="fp-head"><span class="card-num" aria-hidden="true">2</span><h3>Measure the furniture</h3></div>
             <p>Marketing floor plans frequently use undersized furniture to make rooms appear larger. A real queen bed is 1.53 x 2.03m. Measure the bedroom on the plan and check whether the bed fits with space to open the wardrobe and walk around it.</p>
           </article>
-          <article class="card">
-            <span class="card-num" aria-hidden="true">3</span>
-            <h3>Check the ceiling height</h3>
+          <article class="card fp-card">
+            <figure class="fp-fig">
+              <!-- Section, 1 m = 40 px -->
+              <svg viewBox="0 0 320 150" role="img" aria-label="Two room sections compared: a 2.7 metre ceiling, the ADG minimum, and a 3.0 metre ceiling, each with a 1.75 metre tall person for scale.">
+                <line x1="14" y1="138" x2="306" y2="138" class="d-wall"/>
+                <path d="M34 138 V30 H134 V138" class="d-section"/>
+                <path d="M186 138 V18 H286 V138" class="d-section"/>
+                <g class="d-person" transform="translate(84 138)"><circle cx="0" cy="-63" r="7"/><path d="M0 -56 V-26 M0 -26 L-7 0 M0 -26 L7 0 M0 -48 L-9 -34 M0 -48 L9 -34"/></g>
+                <g class="d-person" transform="translate(236 138)"><circle cx="0" cy="-63" r="7"/><path d="M0 -56 V-26 M0 -26 L-7 0 M0 -26 L7 0 M0 -48 L-9 -34 M0 -48 L9 -34"/></g>
+                <line x1="46" y1="30" x2="46" y2="138" class="d-dim"/><text x="52" y="48" class="d-t d-b">2.7 m</text>
+                <line x1="198" y1="18" x2="198" y2="138" class="d-dim"/><text x="204" y="36" class="d-t d-b">3.0 m</text>
+                <text x="84" y="22" class="d-t d-c d-s">ADG minimum</text>
+                <text x="236" y="12" class="d-t d-c d-s">+30 cm</text>
+              </svg>
+            </figure>
+            <div class="fp-head"><span class="card-num" aria-hidden="true">3</span><h3>Check the ceiling height</h3></div>
             <p>The ADG minimum ceiling height is 2.7m for habitable rooms. Ask whether your apartment meets this or exceeds it. A 2.7m ceiling in a room proportioned to the minimum feels noticeably compressed. Every centimetre above the minimum changes the experience of the space.</p>
           </article>
-          <article class="card">
-            <span class="card-num" aria-hidden="true">4</span>
-            <h3>Check the depth</h3>
+          <article class="card fp-card">
+            <figure class="fp-fig">
+              <!-- Section, 1 m = 30 px from the window wall -->
+              <svg viewBox="0 0 320 150" role="img" aria-label="Section through an apartment showing daylight from a window fading with depth, with markers at 6 and 8 metres from the window.">
+                <defs>
+                  <linearGradient id="daylight" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0" stop-color="#f3d9a4" stop-opacity="0.95"/>
+                    <stop offset="0.55" stop-color="#f3d9a4" stop-opacity="0.35"/>
+                    <stop offset="0.9" stop-color="#f3d9a4" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <rect x="24" y="40" width="270" height="88" fill="url(#daylight)"/>
+                <line x1="24" y1="128" x2="294" y2="128" class="d-wall"/><line x1="294" y1="40" x2="294" y2="128" class="d-wall"/>
+                <line x1="24" y1="40" x2="294" y2="40" class="d-wall"/>
+                <line x1="24" y1="40" x2="24" y2="58" class="d-wall"/><line x1="24" y1="118" x2="24" y2="128" class="d-wall"/>
+                <line x1="21" y1="58" x2="21" y2="118" class="d-glass"/><line x1="27" y1="58" x2="27" y2="118" class="d-glass"/>
+                <line x1="204" y1="34" x2="204" y2="134" class="d-guide"/><text x="204" y="146" class="d-t d-c d-s">6 m</text>
+                <line x1="264" y1="34" x2="264" y2="134" class="d-guide"/><text x="264" y="146" class="d-t d-c d-s">8 m</text>
+                <text x="24" y="146" class="d-t d-c d-s">0</text>
+                <text x="24" y="30" class="d-t d-s">Window</text>
+                <text x="120" y="88" class="d-t d-c d-b">Good daylight</text>
+                <text x="234" y="88" class="d-t d-c">Dim</text>
+                <text x="296" y="30" class="d-t d-r d-s">Back of apartment</text>
+              </svg>
+            </figure>
+            <div class="fp-head"><span class="card-num" aria-hidden="true">4</span><h3>Check the depth</h3></div>
             <p>How deep is the apartment from the window wall to the back of the plan? Natural light falls off sharply after 6 to 8 metres. If the apartment is deeper than 8m from a window, the rooms at the back will receive very little natural light regardless of the orientation shown in the marketing material.</p>
           </article>
         </div>
