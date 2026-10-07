@@ -1,5 +1,6 @@
 // GET /api/results — returns all survey responses to the results page.
-// Protected by the RESULTS_PASSWORD environment variable set in the Vercel dashboard.
+// Protected by RESULTS_PASSWORD if set in Vercel; otherwise by the database's read-only
+// token (KV_REST_API_READ_ONLY_TOKEN), which the Upstash integration adds automatically.
 const crypto = require('crypto');
 
 function redisConfig() {
@@ -39,12 +40,17 @@ module.exports = async function handler(req, res) {
     return send(res, 405, { error: 'Method not allowed' });
   }
 
-  const expected = process.env.RESULTS_PASSWORD;
+  const accepted = [
+    process.env.RESULTS_PASSWORD,
+    process.env.KV_REST_API_READ_ONLY_TOKEN || process.env.UPSTASH_REDIS_REST_READ_ONLY_TOKEN
+  ].filter(Boolean);
   const cfg = redisConfig();
-  if (!expected || !cfg) return send(res, 503, { error: 'Results are not set up yet' });
+  if (!accepted.length || !cfg) return send(res, 503, { error: 'Results are not set up yet' });
 
-  const given = req.headers['x-results-password'] || '';
-  if (!given || !passwordMatches(given, expected)) {
+  const given = String(req.headers['x-results-password'] || '').trim();
+  // Check every accepted secret (no early exit) so timing doesn't reveal which matched
+  const ok = accepted.reduce(function (match, secret) { return passwordMatches(given, secret) || match; }, false);
+  if (!given || !ok) {
     await new Promise(function (r) { setTimeout(r, 600); }); // slow down guessing
     return send(res, 401, { error: 'Wrong password' });
   }

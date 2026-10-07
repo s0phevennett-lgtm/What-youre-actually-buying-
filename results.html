@@ -64,8 +64,9 @@
   <p class="sub">What You're Actually Buying · anonymous responses</p>
 
   <form class="card login" id="login">
-    <label for="pw">Results password</label>
+    <label for="pw">Results password or read-only key</label>
     <input type="password" id="pw" autocomplete="current-password" required>
+    <p class="note" style="margin:8px 0 0">Use your RESULTS_PASSWORD, or paste the database's <code>KV_REST_API_READ_ONLY_TOKEN</code> from Vercel → Storage → survey-responses → Show secret.</p>
     <div class="row"><button type="submit">View results</button></div>
     <p class="error" id="login-error" role="alert" hidden></p>
   </form>
