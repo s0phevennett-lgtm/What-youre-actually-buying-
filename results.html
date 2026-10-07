@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Survey Results</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%237a6650'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f4efe7; --text: #2b2620; --muted: #6b6155; --dark: #3a3129;
+    --light: #fbf8f3; --border: #e4dbcd; --bar: #8f7f6c; --bar-bg: #ece4d8;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: "Inter", system-ui, sans-serif; font-size: 16px; line-height: 1.55;
+  }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 32px 16px 64px; }
+  h1 { font-family: "Inter Tight", "Inter", sans-serif; font-weight: 500; letter-spacing: -0.03em; font-size: 34px; margin: 0 0 6px; }
+  .sub { color: var(--muted); margin: 0 0 28px; }
+  .card {
+    background: var(--light); border: 1px solid #ebe2d5; border-radius: 18px;
+    padding: 22px; box-shadow: 0 12px 30px rgba(60,45,30,0.05);
+  }
+  .login { max-width: 420px; }
+  label { display: block; font-weight: 600; margin-bottom: 8px; }
+  input[type="password"] {
+    width: 100%; font: inherit; padding: 10px 14px; min-height: 44px;
+    border: 1px solid #cbbfae; border-radius: 12px; background: #fff;
+  }
+  button, .btn {
+    font: inherit; font-weight: 600; cursor: pointer; text-decoration: none;
+    display: inline-flex; align-items: center; min-height: 44px; padding: 8px 18px;
+    border-radius: 999px; border: 1px solid var(--dark); background: var(--dark); color: #fff;
+  }
+  .btn-outline { background: transparent; color: var(--text); border-color: #cbbfae; }
+  .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 14px; }
+  .error { color: var(--text); font-weight: 600; margin-top: 10px; }
+  :focus-visible { outline: 3px solid var(--dark); outline-offset: 2px; }
+
+  .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-bottom: 18px; }
+  .stat .num { font-family: "Inter Tight", sans-serif; font-size: 40px; font-weight: 400; letter-spacing: -0.03em; line-height: 1.1; }
+  .stat .lbl { color: var(--muted); font-size: 14px; }
+  .grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+  @media (min-width: 820px) { .grid { grid-template-columns: 1fr 1fr; } }
+  h2 { font-size: 16px; margin: 0 0 4px; }
+  .note { color: var(--muted); font-size: 13px; margin: 0 0 14px; }
+  .bar-row { display: grid; grid-template-columns: minmax(120px, 42%) 1fr auto; gap: 10px; align-items: center; margin: 8px 0; font-size: 14px; }
+  .bar-track { height: 12px; background: var(--bar-bg); border-radius: 999px; overflow: hidden; }
+  .bar-fill { height: 100%; background: var(--bar); border-radius: 999px; }
+  .bar-val { font-variant-numeric: tabular-nums; color: var(--muted); min-width: 64px; text-align: right; }
+  .empty { color: var(--muted); }
+  .toolbar { display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <h1>Survey results</h1>
+  <p class="sub">What You're Actually Buying · anonymous responses</p>
+
+  <form class="card login" id="login">
+    <label for="pw">Results password</label>
+    <input type="password" id="pw" autocomplete="current-password" required>
+    <div class="row"><button type="submit">View results</button></div>
+    <p class="error" id="login-error" role="alert" hidden></p>
+  </form>
+
+  <section id="results" hidden>
+    <div class="toolbar">
+      <p class="sub" id="updated" style="margin:0"></p>
+      <div class="row" style="margin:0">
+        <button type="button" class="btn-outline btn" id="refresh">Refresh</button>
+        <button type="button" class="btn" id="csv">Download CSV</button>
+      </div>
+    </div>
+    <div class="summary" id="summary"></div>
+    <div class="grid" id="charts"></div>
+  </section>
+</main>
+
+<script>
+(function () {
+  var LABELS = {
+    purpose: {
+      title: 'What brings you here?',
+      options: { 'buying-off-plan': 'Buying off the plan', 'buying-established': 'Buying established', renting: 'Renting', curious: 'Just curious' }
+    },
+    awareness: {
+      title: 'Knew the legal minimum is often all you get?',
+      options: { yes: 'Yes', somewhat: 'Somewhat', no: 'No' }
+    },
+    questions: {
+      title: 'Questions they plan to ask',
+      note: 'Share of all respondents who ticked each question.',
+      options: { 1: 'Actual room dimensions', 2: 'Visit a completed apartment', 3: 'Materials and substitutions', 4: 'Architect through construction', 5: 'How many exceed the minimum' }
+    },
+    source: {
+      title: 'Where they found the guide',
+      options: { 'display-suite': 'QR card at a display suite', 'open-day': 'Open day or inspection', 'shelter-nsw': 'Shelter NSW', 'tenants-union': "Tenants' Union", social: 'Social media', other: 'Somewhere else' }
+    },
+    lga: { title: 'Area they are looking in', note: 'Optional question.' }
+  };
+
+  var password = '';
+  var data = [];
+  try { password = sessionStorage.getItem('wyab-results-pw') || ''; } catch (e) {}
+
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text !== undefined) n.textContent = text;
+    return n;
+  }
+
+  function load() {
+    return fetch('/api/results', { headers: { 'x-results-password': password }, cache: 'no-store' })
+      .then(function (r) {
+        return r.json().then(function (body) { return { status: r.status, body: body }; });
+      })
+      .then(function (res) {
+        if (res.status !== 200) throw new Error(res.body.error || 'Could not load results');
+        data = res.body.responses || [];
+        try { sessionStorage.setItem('wyab-results-pw', password); } catch (e) {}
+        render();
+      });
+  }
+
+  function count(field, keys) {
+    var c = {};
+    keys.forEach(function (k) { c[k] = 0; });
+    data.forEach(function (r) {
+      var v = r[field];
+      if (Array.isArray(v)) v.forEach(function (x) { c[x] = (c[x] || 0) + 1; });
+      else if (v) c[v] = (c[v] || 0) + 1;
+    });
+    return c;
+  }
+
+  function chart(field) {
+    var cfg = LABELS[field];
+    var card = el('div', 'card');
+    card.appendChild(el('h2', null, cfg.title));
+    var answered = data.filter(function (r) {
+      var v = r[field]; return Array.isArray(v) ? v.length : !!v;
+    }).length;
+    card.appendChild(el('p', 'note', (cfg.note ? cfg.note + ' ' : '') + answered + ' of ' + data.length + ' answered.'));
+    var keys = cfg.options ? Object.keys(cfg.options) : [];
+    var counts = count(field, keys);
+    var entries = Object.keys(counts).map(function (k) { return [k, counts[k]]; });
+    if (!cfg.options) entries.sort(function (a, b) { return b[1] - a[1]; });
+    var denom = field === 'questions' ? data.length : answered;
+    if (!entries.length || !denom) { card.appendChild(el('p', 'empty', 'No answers yet.')); return card; }
+    entries.forEach(function (e) {
+      var pct = denom ? Math.round(e[1] / denom * 100) : 0;
+      var row = el('div', 'bar-row');
+      row.appendChild(el('span', null, cfg.options ? cfg.options[e[0]] : e[0]));
+      var track = el('div', 'bar-track'); var fill = el('div', 'bar-fill');
+      fill.style.width = pct + '%'; track.appendChild(fill); row.appendChild(track);
+      row.appendChild(el('span', 'bar-val', e[1] + ' · ' + pct + '%'));
+      card.appendChild(row);
+    });
+    return card;
+  }
+
+  function render() {
+    document.getElementById('login').hidden = true;
+    document.getElementById('results').hidden = false;
+    document.getElementById('updated').textContent = 'Loaded ' + new Date().toLocaleString('en-AU');
+
+    var summary = document.getElementById('summary');
+    summary.innerHTML = '';
+    var aware = data.filter(function (r) { return r.awareness; });
+    var didntKnow = aware.filter(function (r) { return r.awareness !== 'yes'; }).length;
+    var willAsk = data.filter(function (r) { return r.questions && r.questions.length; }).length;
+    var days = {};
+    data.forEach(function (r) { days[r.date] = 1; });
+    [
+      [data.length, 'responses'],
+      [aware.length ? Math.round(didntKnow / aware.length * 100) + '%' : '–', "didn't fully know the minimum is often all you get"],
+      [data.length ? Math.round(willAsk / data.length * 100) + '%' : '–', 'plan to ask at least one question'],
+      [Object.keys(days).length, 'days with responses']
+    ].forEach(function (s) {
+      var c = el('div', 'card stat');
+      c.appendChild(el('div', 'num', String(s[0])));
+      c.appendChild(el('div', 'lbl', s[1]));
+      summary.appendChild(c);
+    });
+
+    var charts = document.getElementById('charts');
+    charts.innerHTML = '';
+    ['purpose', 'awareness', 'questions', 'source', 'lga'].forEach(function (f) { charts.appendChild(chart(f)); });
+  }
+
+  function csv() {
+    var head = ['date', 'purpose', 'awareness', 'q1_dimensions', 'q2_visit_completed', 'q3_materials', 'q4_architect', 'q5_exceed_minimum', 'source', 'area'];
+    var lines = [head.join(',')];
+    data.forEach(function (r) {
+      var q = r.questions || [];
+      var row = [r.date, r.purpose, r.awareness]
+        .concat([1, 2, 3, 4, 5].map(function (n) { return q.indexOf(n) > -1 ? 1 : 0; }))
+        .concat([r.source, r.lga])
+        .map(function (v) { v = v === null || v === undefined ? '' : String(v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; });
+      lines.push(row.join(','));
+    });
+    var blob = new Blob([lines.join('\n')], { type: 'text/csv' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'survey-results-' + new Date().toISOString().slice(0, 10) + '.csv';
+    document.body.appendChild(a); a.click(); a.remove();
+  }
+
+  document.getElementById('login').addEventListener('submit', function (e) {
+    e.preventDefault();
+    password = document.getElementById('pw').value;
+    var err = document.getElementById('login-error');
+    err.hidden = true;
+    load().catch(function (ex) { err.textContent = ex.message; err.hidden = false; });
+  });
+  document.getElementById('refresh').addEventListener('click', function () {
+    load().catch(function (ex) { alert(ex.message); });
+  });
+  document.getElementById('csv').addEventListener('click', csv);
+
+  if (password) load().catch(function () { password = ''; });
+})();
+</script>
+</body>
+</html>

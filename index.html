@@ -924,6 +924,44 @@
   .render-caption { font-size: 15px; color: var(--text); margin-bottom: 6px; }
   .render-credit { font-size: 13px; color: var(--muted); font-style: italic; margin-bottom: 14px; }
 
+  /* ---- Survey ---- */
+  .survey {
+    margin-top: 48px; padding: 28px 22px;
+    background: var(--light); border: 1px solid #ebe2d5; border-radius: var(--radius);
+    box-shadow: 0 12px 30px rgba(60,45,30,0.05);
+  }
+  .survey-title { font-family: var(--display); font-size: 26px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 8px; }
+  .survey-intro { color: var(--muted); max-width: 60ch; margin-bottom: 8px; }
+  .survey-q { border: 0; margin: 24px 0 0; padding: 0; min-width: 0; }
+  .survey-q legend, .survey-select-label { display: block; font-weight: 600; margin-bottom: 10px; padding: 0; }
+  .hint { font-weight: 400; color: var(--muted); font-size: 14px; margin-left: 4px; }
+  .choices { display: flex; flex-wrap: wrap; gap: 8px; }
+  .choice { position: relative; cursor: pointer; }
+  .choice input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .choice span {
+    display: inline-flex; align-items: center; min-height: 44px; padding: 8px 16px;
+    border: 1px solid #cbbfae; border-radius: 999px; background: #fff;
+    font-size: 15px; color: var(--text);
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  }
+  .choice:hover span { border-color: var(--dark); }
+  .choice input:checked + span { background: var(--dark); border-color: var(--dark); color: #fff; }
+  .choice input[type="checkbox"]:checked + span::before { content: "\2713"; margin-right: 8px; font-size: 13px; }
+  .choice input:focus-visible + span { outline: 3px solid var(--dark); outline-offset: 2px; }
+  .survey-select {
+    font: inherit; font-size: 15px; color: var(--text);
+    min-height: 44px; padding: 8px 40px 8px 14px; border-radius: 12px;
+    border: 1px solid #cbbfae; background: #fff; max-width: 100%;
+  }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .survey-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 28px; }
+  .survey-status { font-size: 14px; color: var(--muted); }
+  .survey-status.is-error { color: var(--text); font-weight: 600; }
+  .survey-privacy { font-size: 13px; color: var(--muted); margin-top: 16px; max-width: 64ch; }
+  .survey-thanks p + p { color: var(--muted); margin-top: 4px; }
+  @media (min-width: 768px) { .survey { padding: 36px 40px; } }
+  @media print { .survey { display: none !important; } }
+
   /* ---- Floor plan diagrams ---- */
   .fp-card { display: flex; flex-direction: column; padding: 14px 14px 26px; }
   .fp-fig { margin: 0 0 20px; background: #f3ede4; border-radius: 12px; padding: 12px 10px 6px; }
@@ -1071,11 +1109,9 @@
       <div class="tablist" role="tablist" aria-label="Guide sections">
         <button class="tab" role="tab" id="tab-minimum" aria-controls="minimum" aria-selected="true"><span class="tab-num">01</span>The minimum</button>
         <button class="tab" role="tab" id="tab-floor-plans" aria-controls="floor-plans" aria-selected="false" tabindex="-1"><span class="tab-num">02</span>Floor plans</button>
-        <button class="tab" role="tab" id="tab-renders" aria-controls="renders" aria-selected="false" tabindex="-1"><span class="tab-num">03</span>Render vs reality</button>
-        <button class="tab" role="tab" id="tab-who" aria-controls="who" aria-selected="false" tabindex="-1"><span class="tab-num">04</span>Who misses out</button>
-        <button class="tab" role="tab" id="tab-questions" aria-controls="questions" aria-selected="false" tabindex="-1"><span class="tab-num">05</span>5 questions</button>
-        <button class="tab" role="tab" id="tab-help" aria-controls="help" aria-selected="false" tabindex="-1"><span class="tab-num">06</span>Get help</button>
-        <button class="tab" role="tab" id="tab-explore" aria-controls="explore" aria-selected="false" tabindex="-1"><span class="tab-num">07</span>Explore Your Area</button>
+        <button class="tab" role="tab" id="tab-questions" aria-controls="questions" aria-selected="false" tabindex="-1"><span class="tab-num">03</span>5 questions</button>
+        <button class="tab" role="tab" id="tab-help" aria-controls="help" aria-selected="false" tabindex="-1"><span class="tab-num">04</span>Get help</button>
+        <button class="tab" role="tab" id="tab-explore" aria-controls="explore" aria-selected="false" tabindex="-1"><span class="tab-num">05</span>Explore Your Area</button>
       </div>
     </div>
   </nav>
@@ -1085,7 +1121,7 @@
 
       <!-- 01 The minimum -->
       <section class="panel" role="tabpanel" id="minimum" aria-labelledby="tab-minimum" tabindex="-1">
-        <p class="kicker">Part 1 of 6</p>
+        <p class="kicker">Part 1 of 4</p>
         <h2 class="section-heading">What the minimum actually looks like</h2>
         <p class="lede">The legal minimum is a floor, not a standard. Here is a one-bedroom apartment built exactly to it, and the same apartment as it is sold to you.</p>
 
@@ -1144,7 +1180,7 @@
 
       <!-- 02 Floor plans -->
       <section class="panel" role="tabpanel" id="floor-plans" aria-labelledby="tab-floor-plans" tabindex="-1">
-        <p class="kicker">Part 2 of 6</p>
+        <p class="kicker">Part 2 of 4</p>
         <h2 class="section-heading">How to read a floor plan</h2>
         <p class="lede">Four checks to make before you trust the plan in the brochure.</p>
         <div class="grid grid-2 fp-grid">
@@ -1247,45 +1283,9 @@
         <div class="pager"></div>
       </section>
 
-      <!-- 03 Render vs reality -->
-      <section class="panel" role="tabpanel" id="renders" aria-labelledby="tab-renders" tabindex="-1">
-        <p class="kicker">Part 3 of 6</p>
-        <h2 class="section-heading">Render vs reality</h2>
-        <p class="lede">A marketing render is an advertisement, not a description. Compare what is shown with what is built.</p>
-        <div class="grid grid-2">
-          <figure>
-            <span class="tag">Render</span>
-            <a href="images/marketing-render-interior.webp" target="_blank" rel="noopener" title="Open the render full size"><img class="figure-img render-img" src="images/marketing-render-interior.webp" width="1536" height="1024" loading="lazy" alt="Marketing-style render of a one-bedroom apartment seen from high on the balcony: walls cut away to show the living room, bedroom and bathroom at once, golden sunlight, glowing lamps, rugs, plants and styled furniture."></a>
-            <figcaption>
-              <p class="render-caption"><strong>Marketing render:</strong> wide-angle lens, enhanced natural light, scaled-down furniture, walls digitally thinned or removed, styling that will not be included.</p>
-              <p class="render-credit">AI-generated illustration, created for this guide.</p>
-            </figcaption>
-          </figure>
-          <figure>
-            <span class="tag is-red">Reality</span>
-            <!-- REPLACE: <img class="figure-img is-alert" src="images/completed.jpg" alt="..."> -->
-            <div class="placeholder is-alert" role="img" aria-label="Image placeholder: The completed apartment.">
-              The completed apartment: actual room dimensions, actual natural light at the orientation provided, actual ceiling height, actual finishes.
-            </div>
-          </figure>
-        </div>
-        <div class="pager"></div>
-      </section>
-
-      <!-- 04 Who misses out -->
-      <section class="panel" role="tabpanel" id="who" aria-labelledby="tab-who" tabindex="-1">
-        <p class="kicker">Part 4 of 6</p>
-        <h2 class="section-heading">Who gets the worst apartments</h2>
-        <div class="prose" style="margin-top:24px">
-          <p>In developments that include affordable housing alongside market-rate apartments, the affordable units are routinely allocated the least desirable positions in the building: southern orientation, single aspect, no cross-ventilation, the poorest outlook. The residents least able to compensate for a poor apartment are given the worst ones. In many schemes, these apartments remain affordable only for a defined period before reverting to market rate.</p>
-        </div>
-        <p class="pullquote">The provision is temporary. <span>The spatial compromise is permanent.</span></p>
-        <div class="pager"></div>
-      </section>
-
-      <!-- 05 Questions -->
+      <!-- 03 Questions -->
       <section class="panel" role="tabpanel" id="questions" aria-labelledby="tab-questions" tabindex="-1">
-        <p class="kicker">Part 5 of 6</p>
+        <p class="kicker">Part 3 of 4</p>
         <h2 class="section-heading">5 questions to ask before you buy</h2>
         <p class="lede">Ask these at the display suite or open day. Tick them off as you go.</p>
 
@@ -1303,12 +1303,92 @@
           <li><label class="q-label"><span class="q-num" aria-hidden="true">5</span><span class="q-text">What percentage of apartments in this building are built to the ADG minimum benchmarks, and which apartments, if any, exceed them?</span><input type="checkbox" class="q-check" data-q="5" aria-label="Asked question 5"></label></li>
         </ol>
         <p class="small-note">Your ticks are saved on this device only.</p>
+
+        <!-- Anonymous survey -->
+        <section class="survey" id="survey" aria-labelledby="survey-h">
+          <p class="kicker">30 seconds · anonymous</p>
+          <h3 class="survey-title" id="survey-h">Help our research</h3>
+          <p class="survey-intro">Four quick taps. No names, emails or contact details. Your answers help us understand who this guide reaches and whether it changes what buyers and renters ask.</p>
+
+          <form id="survey-form" novalidate>
+            <fieldset class="survey-q">
+              <legend>What brings you here?</legend>
+              <div class="choices">
+                <label class="choice"><input type="radio" name="purpose" value="buying-off-plan"><span>Buying off the plan</span></label>
+                <label class="choice"><input type="radio" name="purpose" value="buying-established"><span>Buying an established apartment</span></label>
+                <label class="choice"><input type="radio" name="purpose" value="renting"><span>Renting</span></label>
+                <label class="choice"><input type="radio" name="purpose" value="curious"><span>Just curious</span></label>
+              </div>
+            </fieldset>
+
+            <fieldset class="survey-q">
+              <legend>Before today, did you know the legal minimum is often all you get?</legend>
+              <div class="choices">
+                <label class="choice"><input type="radio" name="awareness" value="yes"><span>Yes</span></label>
+                <label class="choice"><input type="radio" name="awareness" value="somewhat"><span>Somewhat</span></label>
+                <label class="choice"><input type="radio" name="awareness" value="no"><span>No</span></label>
+              </div>
+            </fieldset>
+
+            <fieldset class="survey-q">
+              <legend>Which questions will you ask? <span class="hint">Tick any</span></legend>
+              <div class="choices">
+                <label class="choice"><input type="checkbox" name="questions" value="1"><span>Actual room dimensions</span></label>
+                <label class="choice"><input type="checkbox" name="questions" value="2"><span>Visit a completed apartment</span></label>
+                <label class="choice"><input type="checkbox" name="questions" value="3"><span>Materials and substitutions</span></label>
+                <label class="choice"><input type="checkbox" name="questions" value="4"><span>Architect through construction</span></label>
+                <label class="choice"><input type="checkbox" name="questions" value="5"><span>How many apartments exceed the minimum</span></label>
+              </div>
+            </fieldset>
+
+            <fieldset class="survey-q">
+              <legend>Where did you find this guide?</legend>
+              <div class="choices">
+                <label class="choice"><input type="radio" name="source" value="display-suite"><span>QR card at a display suite</span></label>
+                <label class="choice"><input type="radio" name="source" value="open-day"><span>Open day or inspection</span></label>
+                <label class="choice"><input type="radio" name="source" value="shelter-nsw"><span>Shelter NSW</span></label>
+                <label class="choice"><input type="radio" name="source" value="tenants-union"><span>Tenants' Union</span></label>
+                <label class="choice"><input type="radio" name="source" value="social"><span>Social media</span></label>
+                <label class="choice"><input type="radio" name="source" value="other"><span>Somewhere else</span></label>
+              </div>
+            </fieldset>
+
+            <div class="survey-q">
+              <label class="survey-select-label" for="survey-lga">Which area are you looking in? <span class="hint">Optional</span></label>
+              <select id="survey-lga" name="lga" class="survey-select">
+                <option value="">Prefer not to say</option>
+                <option>City of Sydney</option><option>North Sydney</option><option>Bayside</option>
+                <option>Canterbury-Bankstown</option><option>Inner West</option><option>City of Parramatta</option>
+                <option>City of Ryde</option><option>Canada Bay</option><option>Willoughby</option>
+                <option>Lane Cove</option><option>Burwood</option><option>Strathfield</option>
+                <option>Cumberland</option><option>Georges River</option><option>Randwick</option>
+                <option>Waverley</option><option>Woollahra</option><option>Ku-ring-gai</option>
+                <option>Hornsby</option><option>Northern Beaches</option><option>Other area</option>
+              </select>
+            </div>
+
+            <!-- Bots fill this in; people never see it -->
+            <div class="hp" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+
+            <div class="survey-actions">
+              <button type="submit" class="btn btn-dark" id="survey-submit">Send answers</button>
+              <p class="survey-status" id="survey-status" role="status" aria-live="polite"></p>
+            </div>
+            <p class="survey-privacy">Anonymous and optional. We store only your answers and the date. Responses are used by Master of Architecture students at UTS for this advocacy project.</p>
+          </form>
+
+          <div class="survey-thanks" id="survey-thanks" hidden>
+            <p class="survey-title">Thank you.</p>
+            <p>Your answers have been recorded. Good luck with your search, and don't settle for the minimum.</p>
+          </div>
+        </section>
+
         <div class="pager"></div>
       </section>
 
-      <!-- 06 Get help -->
+      <!-- 04 Get help -->
       <section class="panel" role="tabpanel" id="help" aria-labelledby="tab-help" tabindex="-1">
-        <p class="kicker">Part 6 of 6</p>
+        <p class="kicker">Part 4 of 4</p>
         <h2 class="section-heading">Where to get help</h2>
         <p class="lede">Free, independent advice before you sign anything.</p>
         <div class="grid grid-3">
@@ -1334,7 +1414,7 @@
     </div>
   </div>
 
-  <!-- 07 Explore Your Area (map) -->
+  <!-- 05 Explore Your Area (map) -->
   <section class="panel explore" role="tabpanel" id="explore" aria-labelledby="tab-explore" tabindex="-1" data-standalone hidden>
     <h2 class="visually-hidden" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap">Explore Your Area</h2>
     <div class="map-wrap">
@@ -1362,6 +1442,7 @@
       <div class="footer-actions">
         <button type="button" class="btn btn-light" data-share>Share this guide</button>
         <button type="button" class="btn btn-line" id="print-btn">Print or save as PDF</button>
+        <a href="#survey" class="btn btn-line" data-survey-link>Take the 30-second survey</a>
       </div>
     </div>
     <p>Produced by Sophie Evennett and Christian Migliorino, Master of Architecture, University of Technology Sydney, 2026.</p>
@@ -1581,6 +1662,72 @@
 
   /* ---------- Print ---------- */
   document.getElementById('print-btn').addEventListener('click', function () { window.print(); });
+})();
+</script>
+
+<!-- ---------- Anonymous survey ---------- -->
+<script>
+(function () {
+  var form = document.getElementById('survey-form');
+  if (!form) return;
+  var thanks = document.getElementById('survey-thanks');
+  var status = document.getElementById('survey-status');
+  var button = document.getElementById('survey-submit');
+  var DONE_KEY = 'wyab-survey-done';
+
+  function showThanks() {
+    form.hidden = true;
+    thanks.hidden = false;
+  }
+  try { if (localStorage.getItem(DONE_KEY)) showThanks(); } catch (e) {}
+
+  function setStatus(msg, isError) {
+    status.textContent = msg;
+    status.classList.toggle('is-error', !!isError);
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var data = new FormData(form);
+    var payload = {
+      purpose: data.get('purpose') || null,
+      awareness: data.get('awareness') || null,
+      source: data.get('source') || null,
+      questions: data.getAll('questions').map(Number),
+      lga: data.get('lga') || null,
+      website: data.get('website') || ''
+    };
+    if (!payload.purpose && !payload.awareness && !payload.source && !payload.questions.length && !payload.lga) {
+      setStatus('Choose at least one answer first.', true);
+      return;
+    }
+    button.disabled = true;
+    setStatus('Sending…');
+    fetch('/api/survey', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function (r) {
+      // 429 = this device has already sent several responses today
+      if (!r.ok && r.status !== 429) throw new Error('HTTP ' + r.status);
+      try { localStorage.setItem(DONE_KEY, '1'); } catch (err) {}
+      showThanks();
+      thanks.setAttribute('tabindex', '-1');
+      thanks.focus();
+    }).catch(function () {
+      button.disabled = false;
+      setStatus('Sorry, that didn’t send. Please try again in a moment.', true);
+    });
+  });
+
+  // Footer link: open the questions tab and jump to the survey
+  Array.prototype.forEach.call(document.querySelectorAll('[data-survey-link]'), function (link) {
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+      if (window.wyabSelectTab) window.wyabSelectTab('questions');
+      setTimeout(function () { document.getElementById('survey').scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 450);
+    });
+  });
 })();
 </script>
 
