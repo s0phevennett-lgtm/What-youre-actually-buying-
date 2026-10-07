@@ -1743,8 +1743,10 @@
 (function () {
   // Mapbox PUBLIC token (pk.), restricted to the site's URL in the Mapbox account.
   // Split in two only so GitHub's secret scanner doesn't mistake it for a secret token.
-  var MAPBOX_TOKEN = ['pk.eyJ1Ijoic29waGllZXZlbm5ldHQiLCJhIjoiY21xa2tid2VhMHFuNDJxcTBpc3g3N3VpZiJ9',
-                      'ThmTcwre6XdI2vfC7qTUAA'].join('.');
+  // This token is URL-restricted in Mapbox to https://what-youre-actually-buying.vercel.app,
+  // so the map will not load on localhost previews.
+  var MAPBOX_TOKEN = ['pk.eyJ1Ijoic29waGllZXZlbm5ldHQiLCJhIjoiY211dDQzYWIzMGMyMTJ5b3RnYnplcmdpbyJ9',
+                      'YiRrqEicA78A20gE0im9qA'].join('.');
   var GEOJSON_URL = 'data/lga-boundaries.geojson';
 
   // The 20 LGAs shown on the map. Display names must match the keys in data/lgaData.js.
