@@ -4,37 +4,37 @@
   <!-- Scale: 1 m = 60 px. Apartment origin at (60, 70). -->
   <defs>
     <pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-      <line x1="0" y1="0" x2="0" y2="8" stroke="#d8cdbd" stroke-width="1.2"/>
+      <line x1="0" y1="0" x2="0" y2="8" stroke="#c9d8dc" stroke-width="1.2"/>
     </pattern>
     <style>
-      .floor { fill: #fbf8f3; }
-      .wall { stroke: #3a3129; stroke-linecap: square; fill: none; }
+      .floor { fill: #f8fafb; }
+      .wall { stroke: #2f4651; stroke-linecap: square; fill: none; }
       .ext { stroke-width: 6; }
       .int { stroke-width: 3; }
-      .furn { fill: #ede5d8; stroke: #8a7d6d; stroke-width: 1.2; }
-      .fix { fill: #ffffff; stroke: #8a7d6d; stroke-width: 1.2; }
-      .swing { fill: none; stroke: #8a7d6d; stroke-width: 0.9; }
-      .leaf { stroke: #3a3129; stroke-width: 2; stroke-linecap: square; }
-      .win { stroke: #8a7d6d; stroke-width: 1.2; }
-      .lbl { font-size: 15px; font-weight: 600; fill: #2b2620; text-anchor: middle; }
-      .area { font-size: 12.5px; fill: #4a4036; text-anchor: middle; }
-      .small { font-size: 11px; fill: #4a4036; text-anchor: middle; }
-      .dim { stroke: #6b6155; stroke-width: 1; }
-      .dimtxt { font-size: 12.5px; fill: #2b2620; text-anchor: middle; font-weight: 500; }
-      .note { font-size: 12px; fill: #3a3129; }
-      .callout-line { stroke: #6e5a45; stroke-width: 1; fill: none; }
+      .furn { fill: #dde8ea; stroke: #6f8a92; stroke-width: 1.2; }
+      .fix { fill: #ffffff; stroke: #6f8a92; stroke-width: 1.2; }
+      .swing { fill: none; stroke: #6f8a92; stroke-width: 0.9; }
+      .leaf { stroke: #2f4651; stroke-width: 2; stroke-linecap: square; }
+      .win { stroke: #6f8a92; stroke-width: 1.2; }
+      .lbl { font-size: 15px; font-weight: 600; fill: #1f2a2e; text-anchor: middle; }
+      .area { font-size: 12.5px; fill: #3b4c53; text-anchor: middle; }
+      .small { font-size: 11px; fill: #3b4c53; text-anchor: middle; }
+      .dim { stroke: #4d5f66; stroke-width: 1; }
+      .dimtxt { font-size: 12.5px; fill: #1f2a2e; text-anchor: middle; font-weight: 500; }
+      .note { font-size: 12px; fill: #2f4651; }
+      .callout-line { stroke: #446675; stroke-width: 1; fill: none; }
     </style>
   </defs>
 
   <!-- Title -->
-  <text x="60" y="30" font-size="15" font-weight="600" fill="#2b2620">ADG minimum one-bedroom · 50 m²</text>
-  <text x="60" y="48" font-size="11" fill="#6b6155">Furnished to scale with real furniture sizes</text>
+  <text x="60" y="30" font-size="15" font-weight="600" fill="#1f2a2e">ADG minimum one-bedroom · 50 m²</text>
+  <text x="60" y="48" font-size="11" fill="#4d5f66">Furnished to scale with real furniture sizes</text>
 
   <!-- Floor -->
   <rect class="floor" x="60" y="70" width="396" height="456"/>
 
   <!-- Balcony (outside the 50 m²): 4.0 x 2.0 m -->
-  <rect x="60" y="526" width="240" height="120" fill="url(#hatch)" stroke="#8a7d6d" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <rect x="60" y="526" width="240" height="120" fill="url(#hatch)" stroke="#6f8a92" stroke-width="1.2" stroke-dasharray="5 4"/>
 
   <!-- ===== Furniture & fixtures ===== -->
   <!-- Kitchen bench along left wall: x 0–0.6, y 0.8–3.4 -->
@@ -118,14 +118,14 @@
   <text class="lbl" x="356" y="497">Bedroom</text>
   <text class="area" x="356" y="511">3.0 × 3.4 m · 10.2 m²</text>
   <text class="lbl" x="366" y="140">Bath / laundry</text>
-  <text class="lbl" x="159" y="62" font-size="10" font-weight="500" fill="#6b6155">Entry</text>
+  <text class="lbl" x="159" y="62" font-size="10" font-weight="500" fill="#4d5f66">Entry</text>
   <text class="lbl" x="180" y="582">Balcony</text>
   <text class="area" x="180" y="597">4.0 × 2.0 m · 8 m²</text>
 
   <!-- ===== Gap between open wardrobe doors and bed ===== -->
   <line class="callout-line" x1="366" y1="352" x2="366" y2="382"/>
   <line class="callout-line" x1="361" y1="352" x2="371" y2="352"/><line class="callout-line" x1="361" y1="382" x2="371" y2="382"/>
-  <text class="small" x="374" y="372" style="text-anchor:start; fill:#6e5a45; font-weight:600">0.5 m</text>
+  <text class="small" x="374" y="372" style="text-anchor:start; fill:#446675; font-weight:600">0.5 m</text>
 
   <!-- ===== Dimensions ===== -->
   <!-- Overall width 6.6 m (top) -->
@@ -140,9 +140,9 @@
 
   <!-- ===== Scale bar ===== -->
   <g transform="translate(60 706)">
-    <rect x="0" y="0" width="60" height="6" fill="#3a3129"/>
-    <rect x="60" y="0" width="60" height="6" fill="#fff" stroke="#3a3129"/>
-    <rect x="120" y="0" width="60" height="6" fill="#3a3129"/>
+    <rect x="0" y="0" width="60" height="6" fill="#2f4651"/>
+    <rect x="60" y="0" width="60" height="6" fill="#fff" stroke="#2f4651"/>
+    <rect x="120" y="0" width="60" height="6" fill="#2f4651"/>
     <text class="small" x="0" y="20">0</text><text class="small" x="60" y="20">1</text><text class="small" x="120" y="20">2</text><text class="small" x="180" y="20">3 m</text>
   </g>
 
@@ -150,5 +150,5 @@
   <text class="note" x="262" y="712">Internal area 50 m² (6.6 × 7.6 m), excl. balcony</text>
   <text class="note" x="262" y="729">Ceiling height 2.7 m · single aspect</text>
   <text class="note" x="262" y="746">Every room is at the ADG minimum</text>
-  <text font-size="9" fill="#6b6155" x="60" y="780">Drawing: Sophie Evennett &amp; Christian Migliorino, UTS 2026. Benchmarks: NSW Apartment Design Guide (2015).</text>
+  <text font-size="9" fill="#4d5f66" x="60" y="780">Drawing: Sophie Evennett &amp; Christian Migliorino, UTS 2026. Benchmarks: NSW Apartment Design Guide (2015).</text>
 </svg>
